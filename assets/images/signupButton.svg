@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="44" viewBox="0 0 300 44">
+    <defs>
+        <linearGradient id="a" x1="100%" x2="0%" y1="48.924%" y2="51.076%">
+            <stop offset="0%" stop-color="#FF5838"/>
+            <stop offset="100%" stop-color="#FF9B38"/>
+        </linearGradient>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <rect width="300" height="44" fill="url(#a)" rx="20"/>
+        <text fill="#FFF" font-family="JalnanOTF, Jalnan OTF" font-size="16" font-weight="bold" letter-spacing="1.067">
+            <tspan x="115.367" y="28">회원가입</tspan>
+        </text>
+    </g>
+</svg>

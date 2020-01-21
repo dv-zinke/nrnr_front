@@ -37,7 +37,7 @@ class LoginPage extends StatelessWidget {
                   RaisedButton(
                     child: Text('signup', style: TextStyle(fontSize: 24)),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/signUp');
+                      Navigator.pushNamed(context, '/');
                     },
                   ),
                   Container(height: size.height * 0.05)
