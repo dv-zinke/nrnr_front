@@ -30,15 +30,15 @@ class InitScreen extends StatelessWidget {
                         Text("니방내")
                       ],
                     ),
-                    Container(height: size.height * 0.25),
+                    Container(height: size.height * 0.30),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         Container(
                           child: GestureDetector(
-                            onTap: () =>{ print('b')},
-                            child: SvgPicture.asset('assets/images/loginButton.svg', fit: BoxFit.cover, width: size.width*0.8,)
+                            onTap: () =>{ Navigator.pushNamed(context, '/login')},
+                            child: SvgPicture.asset('assets/images/loginButton.svg', fit: BoxFit.cover, width: size.width*0.8)
                           ),
                         ),
                         Padding(padding: EdgeInsets.only(bottom: 20),),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nrnr/screens/login/LoginBackground.dart';
 
 class LoginPage extends StatelessWidget {
@@ -9,47 +11,55 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery
-        .of(context)
-        .size;
+    final Size size = MediaQuery.of(context).size;
     return MaterialApp(
       home: Scaffold(
           body: Stack(
-            alignment: Alignment.center,
+        fit: StackFit.expand,
+        children: <Widget>[
+          Stack(
+            alignment: Alignment.topCenter,
             children: <Widget>[
-              CustomPaint(
-                size:size,
-                painter: LoginBackground(),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-
-                  _logoImage,
-                  Stack(
+              SvgPicture.asset('assets/top_background.svg',
+                  fit: BoxFit.cover,
+                  width: size.width,
+                  height: size.height * 0.5),
+              Padding(
+                  padding: EdgeInsets.only(top: size.height * 0.2),
+                  child: Stack(
                     children: <Widget>[
-                      _inputForm(size),
-                      _inputLoginButton(size, context)
+                      SvgPicture.asset('assets/images/circle.svg'),
+                      Text("aa", textAlign: TextAlign.center,)
                     ],
-                  ),
-                  Container(height: size.height * 0.1),
-                  RaisedButton(
-                    child: Text('signup', style: TextStyle(fontSize: 24)),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/');
-                    },
-                  ),
-                  Container(height: size.height * 0.05)
-                ],
-              )
+                  ))
             ],
-          )),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Stack(
+                children: <Widget>[
+                  _inputForm(size),
+                  _inputLoginButton(size, context)
+                ],
+              ),
+              Container(height: size.height * 0.1),
+              RaisedButton(
+                child: Text('signup', style: TextStyle(fontSize: 24)),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/');
+                },
+              ),
+              Container(height: size.height * 0.05),
+            ],
+          )
+        ],
+      )),
     );
   }
 
-  Widget get _logoImage =>
-      Expanded(
+  Widget get _logoImage => Expanded(
         child: Padding(
           padding: const EdgeInsets.only(top: 40, left: 40, right: 40),
           child: FittedBox(
@@ -61,13 +71,11 @@ class LoginPage extends StatelessWidget {
         ),
       );
 
-
-  Widget _inputForm(size) =>
-      Padding(
+  Widget _inputForm(size) => Padding(
         padding: EdgeInsets.all(size.width * 0.05),
         child: Card(
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           elevation: 6,
           child: Padding(
             padding: const EdgeInsets.only(
@@ -117,21 +125,21 @@ class LoginPage extends StatelessWidget {
         ),
       );
 
-  Widget _inputLoginButton(size, context) =>
-      Positioned(
+  Widget _inputLoginButton(size, context) => Positioned(
         left: size.width * 0.2,
         right: size.width * 0.2,
         bottom: 0,
         child: SizedBox(
-          height:50,
+          height: 50,
           child: RaisedButton(
-            child: Text("Login", style: TextStyle(fontSize:20, color:Colors.white)),
+            child: Text("Login",
+                style: TextStyle(fontSize: 20, color: Colors.white)),
             color: Colors.blue,
             shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             onPressed: () {
               Navigator.pushNamed(context, '/main');
-              if(_formKey.currentState.validate()){
+              if (_formKey.currentState.validate()) {
                 print(_emailController.text.toString());
               }
             },

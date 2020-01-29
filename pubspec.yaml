@@ -47,6 +47,8 @@ flutter:
    - assets/images/background.svg
    - assets/images/loginButton.svg
    - assets/images/signupButton.svg
+   - assets/top_background.svg
+   - assets/images/circle.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
