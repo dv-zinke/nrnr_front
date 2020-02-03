@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:nrnr/screens/login/LoginBackground.dart';
 
 class LoginPage extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
@@ -29,7 +28,10 @@ class LoginPage extends StatelessWidget {
                   child: Stack(
                     children: <Widget>[
                       SvgPicture.asset('assets/images/circle.svg'),
-                      Text("aa", textAlign: TextAlign.center,)
+                      Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Image.asset('assets/images/logo.png'),
+                      )
                     ],
                   ))
             ],
@@ -41,17 +43,31 @@ class LoginPage extends StatelessWidget {
               Stack(
                 children: <Widget>[
                   _inputForm(size),
-                  _inputLoginButton(size, context)
                 ],
               ),
-              Container(height: size.height * 0.1),
-              RaisedButton(
-                child: Text('signup', style: TextStyle(fontSize: 24)),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/');
+              GestureDetector(
+                  onTap: () => {
+                    //Todo API통신
+                        if (_formKey.currentState.validate())
+                          {
+                            print("id = " +
+                                _idController.text.toString() +
+                                "\n" +
+                                "password = " +
+                                _passwordController.text.toString())
+                            // Navigator.pushNamed(context, '/main'),
+                          }
+                      },
+                  child: SvgPicture.asset('assets/images/signin_btn.svg',
+                      fit: BoxFit.cover, width: size.width * 0.9)),
+              SizedBox(height: 20),
+              GestureDetector(
+                onTap: () => {
+                  Navigator.pushNamed(context, '/signUp'),
                 },
+                child: Text("회원가입"),
               ),
-              Container(height: size.height * 0.05),
+              Container(height: size.height * 0.3),
             ],
           )
         ],
@@ -59,90 +75,62 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget get _logoImage => Expanded(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 40, left: 40, right: 40),
-          child: FittedBox(
-            fit: BoxFit.contain,
-            child: CircleAvatar(
-              backgroundImage: NetworkImage("https://picsum.photos/200"),
-            ),
-          ),
-        ),
-      );
-
   Widget _inputForm(size) => Padding(
         padding: EdgeInsets.all(size.width * 0.05),
-        child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          elevation: 6,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 12,
-              right: 12,
-              top: 16,
-              bottom: 32,
-            ),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.account_circle),
-                      labelText: "Email",
-                    ),
-                    validator: (String value) {
-                      if (value.isEmpty) {
-                        return "이메일을 적어주세요";
-                      }
-                      return null;
-                    },
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              new TextFormField(
+                controller: _idController,
+                decoration: new InputDecoration(
+                  labelText: "ID",
+                  fillColor: Colors.white,
+                  filled: true,
+                  prefixIcon: Icon(Icons.person),
+                  border: new OutlineInputBorder(
+                    borderRadius: new BorderRadius.circular(30.0),
+                    borderSide: new BorderSide(),
                   ),
-                  TextFormField(
-                    obscureText: true,
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.vpn_key),
-                      labelText: "Password",
-                    ),
-                    validator: (String value) {
-                      if (value.isEmpty) {
-                        return "비밀번호를 적어주세요";
-                      }
-                      return null;
-                    },
-                  ),
-                  Container(height: 8),
-                  Text("Forgot Password")
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
+                  //fillColor: Colors.green
+                ),
+                validator: (val) {
 
-  Widget _inputLoginButton(size, context) => Positioned(
-        left: size.width * 0.2,
-        right: size.width * 0.2,
-        bottom: 0,
-        child: SizedBox(
-          height: 50,
-          child: RaisedButton(
-            child: Text("Login",
-                style: TextStyle(fontSize: 20, color: Colors.white)),
-            color: Colors.blue,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            onPressed: () {
-              Navigator.pushNamed(context, '/main');
-              if (_formKey.currentState.validate()) {
-                print(_emailController.text.toString());
-              }
-            },
+                },
+                keyboardType: TextInputType.text,
+                style: new TextStyle(
+                  fontFamily: "Poppins",
+                ),
+              ),
+              SizedBox(height: 20),
+              new TextFormField(
+                obscureText: true,
+                controller: _passwordController,
+                decoration: new InputDecoration(
+                  labelText: "Password",
+                  fillColor: Colors.white,
+                  filled: true,
+                  prefixIcon: Icon(Icons.vpn_key),
+                  border: new OutlineInputBorder(
+                    borderRadius: new BorderRadius.circular(30.0),
+                    borderSide: new BorderSide(),
+                  ),
+                  //fillColor: Colors.green
+                ),
+                validator: (val) {
+                  if (val.length == 0) {
+                    return;
+                  } else {
+                    return null;
+                  }
+                },
+                keyboardType: TextInputType.text,
+                style: new TextStyle(
+                  fontFamily: "Poppins",
+                ),
+              ),
+            ],
           ),
         ),
       );

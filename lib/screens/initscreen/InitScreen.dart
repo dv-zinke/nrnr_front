@@ -27,7 +27,7 @@ class InitScreen extends StatelessWidget {
                           radius: 60,
                           child: Icon(Icons.home, color: Colors.white, size: 60.0),
                         ),
-                        Text("니방내")
+                        Text("니방내방")
                       ],
                     ),
                     Container(height: size.height * 0.30),
