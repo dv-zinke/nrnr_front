@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300px" height="44px" viewBox="0 0 300 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 61.2 (101010) - https://sketch.com -->
+    <title>36A8BB93-CB1B-46A5-B580-00519023E56C</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="48.9244444%" x2="0%" y2="51.0755556%" id="linearGradient-1">
+            <stop stop-color="#FF5838" offset="0%"></stop>
+            <stop stop-color="#FF9B38" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Android" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="로그인-화면" transform="translate(-30.000000, -376.000000)">
+            <g id="sign-tab" transform="translate(30.000000, 376.000000)">
+                <rect id="Rectangle-Copy-5" fill="url(#linearGradient-1)" x="0" y="0" width="300" height="44" rx="20"></rect>
+                <text id="SIGN-IN" font-family="JalnanOTF, Jalnan OTF" font-size="16" font-weight="bold" letter-spacing="1.06666667" fill="#FFFFFF">
+                    <tspan x="115.462667" y="28">SIGN IN</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
