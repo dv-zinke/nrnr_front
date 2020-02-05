@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nrnr/http/http.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -10,6 +11,18 @@ class SignUpPage extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
+  var result;
+
+  createUser() async {
+    result = await http_post("create-user", {
+      "id": _idController.text,
+      "password": _passwordController.text,
+      "name": _schoolController.text,
+      "school": _nameController.text,
+      "address": _emailController.text
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -49,10 +62,10 @@ class SignUpPage extends StatelessWidget {
               ),
               GestureDetector(
                   onTap: () => {
-
                     //Todo API통신
                         if (_signUpFormkey.currentState.validate())
                           {
+                            createUser(),
                             print("id = " +
                                 _idController.text.toString() +
                                 "\n" +
