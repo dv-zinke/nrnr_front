@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nrnr/http/RequestResult.dart';
 
 class SignUpPage extends StatelessWidget {
   final GlobalKey<FormState> _signUpFormkey = GlobalKey<FormState>();
@@ -9,6 +10,18 @@ class SignUpPage extends StatelessWidget {
   final TextEditingController _schoolController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+
+  var result;
+
+  createUser() async {
+    result = await http_post("create-user", {
+      "id": _idController.text,
+      "password": _passwordController.text,
+      "name": _schoolController.text,
+      "school": _nameController.text,
+      "emailAddress": _emailController.text
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,15 +62,15 @@ class SignUpPage extends StatelessWidget {
               ),
               GestureDetector(
                   onTap: () => {
-
-                    //Todo API통신
+                        //Todo API통신
                         if (_signUpFormkey.currentState.validate())
                           {
+                            createUser(),
                             print("id = " +
                                 _idController.text.toString() +
                                 "\n" +
                                 "password = " +
-                                _passwordController.text.toString()+
+                                _passwordController.text.toString() +
                                 "\n" +
                                 "name = " +
                                 _nameController.text.toString() +
@@ -66,8 +79,7 @@ class SignUpPage extends StatelessWidget {
                                 _schoolController.text.toString() +
                                 "\n" +
                                 "email = " +
-                                _emailController.text.toString()
-                            )
+                                _emailController.text.toString())
                             // Navigator.pushNamed(context, '/main'),
                           }
                       },
@@ -104,7 +116,7 @@ class SignUpPage extends StatelessWidget {
                 ),
                 validator: (val) {
                   if (val.length == 0) {
-                    return ;
+                    return;
                   } else {
                     return null;
                   }
@@ -131,7 +143,7 @@ class SignUpPage extends StatelessWidget {
                 ),
                 validator: (val) {
                   if (val.length == 0) {
-                    return ;
+                    return;
                   } else {
                     return null;
                   }
@@ -169,7 +181,6 @@ class SignUpPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               new TextFormField(
-                obscureText: true,
                 controller: _schoolController,
                 decoration: new InputDecoration(
                   labelText: "school",
@@ -196,7 +207,6 @@ class SignUpPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               new TextFormField(
-                obscureText: true,
                 controller: _emailController,
                 decoration: new InputDecoration(
                   labelText: "email",
@@ -211,7 +221,7 @@ class SignUpPage extends StatelessWidget {
                 ),
                 validator: (val) {
                   if (val.length == 0) {
-                    return ;
+                    return;
                   } else {
                     return null;
                   }

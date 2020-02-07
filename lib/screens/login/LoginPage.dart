@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nrnr/http/RequestResult.dart';
+
 
 class LoginPage extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  var result;
+
+  loginUser() async {
+    result = http_post("login-user", {
+      "id": _idController.text,
+      "password": _passwordController.text
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +61,7 @@ class LoginPage extends StatelessWidget {
                     //Todo API통신
                         if (_formKey.currentState.validate())
                           {
+                            loginUser(),
                             print("id = " +
                                 _idController.text.toString() +
                                 "\n" +
