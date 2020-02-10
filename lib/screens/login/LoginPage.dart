@@ -9,13 +9,14 @@ class LoginPage extends StatelessWidget {
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  var result;
+  bool response = true;
 
   loginUser() async {
-    result = http_post("login-user", {
+    var result = await http_post("login-user", {
       "id": _idController.text,
       "password": _passwordController.text
     });
+    response = result.data['status'];
   }
 
   @override
@@ -65,7 +66,8 @@ class LoginPage extends StatelessWidget {
                                 _idController.text.toString() +
                                 "\n" +
                                 "password = " +
-                                _passwordController.text.toString())
+                                _passwordController.text.toString()),
+                                print(response)
                             // Navigator.pushNamed(context, '/main'),
                           }
                       },

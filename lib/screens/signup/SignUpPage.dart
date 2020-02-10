@@ -14,13 +14,14 @@ class SignUpPage extends StatelessWidget {
   var result;
 
   createUser() async {
-    result = await http_post("create-user", {
+    var response = await http_post("create-user", {
       "id": _idController.text,
       "password": _passwordController.text,
       "name": _schoolController.text,
       "school": _nameController.text,
-      "address": _emailController.text
+      "emailAddress": _emailController.text
     });
+    result = response.data['status'];
   }
   
   @override
