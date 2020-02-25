@@ -23,10 +23,16 @@ dependencies:
   flutter_svg: ^0.16.1
   cupertino_icons: ^0.1.2
   english_words: ^3.1.0
+  carousel_slider: ^1.4.1
+  flutter_swiper : ^1.1.6
+  flutter_candies_demo_library:
+    git:
+      url: https://github.com/fluttercandies/flutter_candies_demo_library.git
 
 dev_dependencies:
   flutter_test:
-    sdk: flutter
+      sdk: flutter
+
 
 
 # For information on the generic Dart part of this file, see the
@@ -48,9 +54,15 @@ flutter:
    - assets/images/loginButton.svg
    - assets/images/signupButton.svg
    - assets/top_background.svg
+   - assets/top_background.png
    - assets/images/circle.svg
    - assets/images/logo.png
+   - assets/images/sign_bar.png
+   - assets/images/signup.png
+   - assets/images/logo_text.png
    - assets/images/signin_btn.svg
+   - assets/images/circle_background.png
+   - assets/images/person_background.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

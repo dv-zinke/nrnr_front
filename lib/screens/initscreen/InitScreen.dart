@@ -20,16 +20,17 @@ class InitScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Column(
+                    Stack(
+                      alignment: Alignment.topCenter,
                       children: <Widget>[
-                        CircleAvatar(
-                          backgroundColor: Colors.blue,
-                          radius: 60,
-                          child: Icon(Icons.home, color: Colors.white, size: 60.0),
-                        ),
-                        Text("니방내방")
+                        Image.asset('assets/images/logo.png'),
+                        Padding(
+                          padding:EdgeInsets.only(top: 90),
+                          child: Image.asset('assets/images/logo_text.png'),
+                        )
                       ],
                     ),
+
                     Container(height: size.height * 0.30),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -44,7 +45,7 @@ class InitScreen extends StatelessWidget {
                         Padding(padding: EdgeInsets.only(bottom: 20),),
                         Container(
                           child: GestureDetector(
-                              onTap: () =>{ print('b')},
+                              onTap: () =>{ Navigator.pushNamed(context, '/signUp')},
                               child: SvgPicture.asset('assets/images/signupButton.svg', fit: BoxFit.cover, width: size.width*0.8,)
                           ),
                         ),

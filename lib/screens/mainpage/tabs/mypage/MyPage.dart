@@ -10,6 +10,11 @@ class MyPage extends StatelessWidget {
             // center the children
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              CircleAvatar(
+                minRadius: 30,
+                backgroundColor: Colors.transparent,
+                child:  new Image.asset("assets/images/person_background.png"),
+              ),
               RaisedButton(
                 child: Text("로그아웃", style: TextStyle(fontSize: 24)),
                 onPressed: () {
