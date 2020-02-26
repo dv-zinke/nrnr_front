@@ -3,12 +3,10 @@ import 'package:nrnr/screens/mainpage/tabs/mypage/MyPage.dart';
 import 'package:nrnr/screens/mainpage/tabs/search/Search.dart';
 import 'package:nrnr/screens/mainpage/tabs/write/Write.dart';
 
-
 class MainPage extends StatefulWidget {
   @override
   MainPageState createState() => MainPageState();
 }
-
 
 class MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
@@ -29,12 +27,13 @@ class MainPageState extends State<MainPage>
     controller.dispose();
     super.dispose();
   }
-  final double tabsIconSize = 35;
+
+  final double tabsIconSize = 5;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // Appbar
-
       // Set the TabBar view as the body of the Scaffold
       body: TabBarView(
         // Add tabs as widgets
@@ -44,27 +43,51 @@ class MainPageState extends State<MainPage>
       ),
       // Set the bottom navigation bar
       bottomNavigationBar: Container(
-        height: 60,
+        height: 70,
 
         // set the color of the bottom navigation bar
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment(0, 0.7294270833333343),
-                end: Alignment(0.9999999999999998, 0.7294270833333343),
-                colors: [const Color(0xffff0100), const Color(0xffff6300), const Color(0xffffc100)])
+          color: Colors.white,
+            boxShadow: [
+              new BoxShadow(
+                color: Colors.black26,
+                offset: new Offset(0, -1.0),
+                  blurRadius:10
+              )
+            ]
         ),
         child: TabBar(
           tabs: <Tab>[
             Tab(
-              // set icon to the tab
-              icon: Icon(Icons.search, size: tabsIconSize),
-            ),
+                child: Column(
+              children: <Widget>[
+                Icon(Icons.search, size: 30, color: Colors.black87),
+                Text(
+                  'SEARCH',
+                  style: TextStyle(color: Colors.black, fontSize: 12),
+                )
+              ],
+            )),
             Tab(
-              icon: Icon(Icons.create, size: tabsIconSize),
-            ),
+                child: Column(
+              children: <Widget>[
+                Icon(Icons.create, size: 30, color: Colors.black87),
+                Text(
+                  'CREATE',
+                  style: TextStyle(color: Colors.black, fontSize: 12),
+                )
+              ],
+            )),
             Tab(
-              icon: Icon(Icons.person, size: tabsIconSize),
-            ),
+                child: Column(
+              children: <Widget>[
+                Icon(Icons.person, size: 30, color: Colors.black87),
+                Text(
+                  'ME',
+                  style: TextStyle(color: Colors.black, fontSize: 12),
+                )
+              ],
+            )),
           ],
           controller: controller,
           indicatorColor: Colors.transparent,
