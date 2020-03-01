@@ -57,14 +57,16 @@ class PostBloc extends Bloc<PostEvent, PostState> {
 
   Future<List<Post>> _fetchPosts(int startIndex, int limit) async {
     final response = await httpClient.get(
-        'https://jsonplaceholder.typicode.com/posts?_start=$startIndex&_limit=$limit');
+        'https://jsonplaceholder.typicode.com/photos?_start=$startIndex&_limit=$limit');
     if (response.statusCode == 200) {
       final data = json.decode(response.body) as List;
       return data.map((rawPost) {
         return Post(
+          albumId: rawPost['albumId'],
           id: rawPost['id'],
           title: rawPost['title'],
-          body: rawPost['body'],
+          url: rawPost['url'],
+          thumbnailUrl: rawPost['thumbnailUrl']
         );
       }).toList();
     } else {

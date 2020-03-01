@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nrnr/bloc/post/post.dart';
-import 'package:nrnr/screens/mainpage/tabs/search/detail/Detail.dart';
 import 'package:nrnr/screens/mainpage/tabs/search/list/List.dart';
 import 'package:http/http.dart' as http;
+
 class Search extends StatefulWidget {
   @override
   _SearchState createState() => new _SearchState();
