@@ -46,51 +46,31 @@ class MainPageState extends State<MainPage>
         height: 70,
 
         // set the color of the bottom navigation bar
-        decoration: BoxDecoration(
-          color: Colors.white,
-            boxShadow: [
-              new BoxShadow(
-                color: Colors.black26,
-                offset: new Offset(0, -1.0),
-                  blurRadius:10
-              )
-            ]
-        ),
+        decoration: BoxDecoration(color: Colors.white, boxShadow: [
+          new BoxShadow(
+              color: Colors.black26,
+              offset: new Offset(0, -1.0),
+              blurRadius: 10)
+        ]),
         child: TabBar(
           tabs: <Tab>[
             Tab(
-                child: Column(
-              children: <Widget>[
-                Icon(Icons.search, size: 30, color: Colors.black87),
-                Text(
-                  'SEARCH',
-                  style: TextStyle(color: Colors.black, fontSize: 12),
-                )
-              ],
-            )),
+              icon: Icon(Icons.search),
+              text: "SEARCH",
+            ),
             Tab(
-                child: Column(
-              children: <Widget>[
-                Icon(Icons.create, size: 30, color: Colors.black87),
-                Text(
-                  'CREATE',
-                  style: TextStyle(color: Colors.black, fontSize: 12),
-                )
-              ],
-            )),
+              icon: Icon(Icons.create),
+              text: "CREATE",
+            ),
             Tab(
-                child: Column(
-              children: <Widget>[
-                Icon(Icons.person, size: 30, color: Colors.black87),
-                Text(
-                  'ME',
-                  style: TextStyle(color: Colors.black, fontSize: 12),
-                )
-              ],
-            )),
+              icon: Icon(Icons.person),
+              text: "ME",
+            ),
           ],
           controller: controller,
           indicatorColor: Colors.transparent,
+          unselectedLabelColor: Colors.black87,
+          labelColor: const Color(0xffff7715),
         ),
       ),
     );

@@ -25,22 +25,11 @@ class LoginPage extends StatelessWidget {
           body: Stack(
             alignment: Alignment.topCenter,
             children: <Widget>[
-              Container(
-                width: double.infinity,
-                child: new ConstrainedBox(
-                  constraints: new BoxConstraints(),
-                  child: Image.asset(
-                    'assets/top_background.png',
-                    fit: BoxFit.cover,
-                    height: size.height * 0.5,
-                  ),
-                ),
-              ),
               Stack(
                 alignment: Alignment.topCenter,
                 children: <Widget>[
                   Padding(
-                      padding: EdgeInsets.only(top: size.height * 0.08),
+                      padding: EdgeInsets.only(top: size.height * 0.1),
                       child: Stack(
                         children: <Widget>[
                           SvgPicture.asset('assets/images/circle.svg'),
@@ -92,7 +81,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () => {
-                      Navigator.pushNamed(context, '/signUp'),
+                      Navigator.pushNamed(context, '/'),
                     },
                     child: Padding(
                       padding:EdgeInsets.only(top: 50),
@@ -126,15 +115,14 @@ class LoginPage extends StatelessWidget {
               new TextFormField(
                 controller: _idController,
                 decoration: new InputDecoration(
-                  labelText: "ID",
-                  fillColor: Colors.white,
-                  filled: true,
-                  prefixIcon: Icon(Icons.person),
-                  border: new OutlineInputBorder(
-                    borderRadius: new BorderRadius.circular(30.0),
-                    borderSide: new BorderSide(),
-                  ),
-                  //fillColor: Colors.green
+                    hintText: "Enter your id",
+                    labelText: "ID",
+                    labelStyle: new TextStyle(color: const Color(0xFF424242), fontSize: 16, fontWeight: FontWeight.bold),
+                    border: new UnderlineInputBorder(
+                        borderSide: new BorderSide(
+                            color: Colors.red
+                        )
+                    )
                 ),
                 validator: (val) {
                   if (val.length == 0) {
@@ -154,14 +142,12 @@ class LoginPage extends StatelessWidget {
                 controller: _passwordController,
                 decoration: new InputDecoration(
                   labelText: "Password",
-                  fillColor: Colors.white,
-                  filled: true,
-                  prefixIcon: Icon(Icons.vpn_key),
-                  border: new OutlineInputBorder(
-                    borderRadius: new BorderRadius.circular(30.0),
-                    borderSide: new BorderSide(),
-                  ),
-                  //fillColor: Colors.green
+                    labelStyle: new TextStyle(color: const Color(0xFF424242), fontSize: 16, fontWeight: FontWeight.bold),
+                    border: new UnderlineInputBorder(
+                        borderSide: new BorderSide(
+                            color: Colors.red
+                        )
+                    )
                 ),
                 validator: (val) {
                   if (val.length == 0) {

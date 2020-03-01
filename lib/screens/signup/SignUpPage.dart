@@ -35,17 +35,7 @@ class SignUpPage extends StatelessWidget {
             child: Stack(
               alignment: Alignment.topCenter,
               children: <Widget>[
-                Container(
-                  width: double.infinity,
-                  child: new ConstrainedBox(
-                    constraints: new BoxConstraints(),
-                    child: Image.asset(
-                      'assets/top_background.png',
-                      fit: BoxFit.cover,
-                      height: size.height * 0.5,
-                    ),
-                  ),
-                ),
+
                 Positioned(
                   top: 10.0,
                   left: 0.0,
