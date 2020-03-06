@@ -10,7 +10,7 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  bool isSearch = false;
+  bool isSearch = true;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300px" height="44px" viewBox="0 0 300 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 63.1 (101010) - https://sketch.com -->
+    <title>D24EBB20-7710-425F-B20A-24ED8C8EAE3F</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="Android2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="회원가입-화면" transform="translate(-32.000000, -533.000000)">
+            <g id="sign-bar-copy" transform="translate(32.000000, 533.000000)">
+                <g id="sign-bar">
+                    <rect id="Rectangle-Copy-5" fill="#FF6B00" x="0" y="0" width="300" height="44" rx="20"></rect>
+                    <text id="DONE" font-family="Roboto-Black, Roboto" font-size="16" font-weight="700" letter-spacing="2" fill="#FFFFFF">
+                        <tspan x="125.710938" y="28">DONE</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

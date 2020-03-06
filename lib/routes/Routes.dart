@@ -4,6 +4,7 @@ import 'package:nrnr/screens/initscreen/InitScreen.dart';
 import 'package:nrnr/screens/login/LoginPage.dart';
 import 'package:nrnr/screens/login/Test.dart';
 import 'package:nrnr/screens/mainpage/MainPage.dart';
+import 'package:nrnr/screens/mainpage/tabs/search/detail/Detail.dart';
 import 'package:nrnr/screens/mainpage/tabs/search/list/List.dart';
 import 'package:nrnr/screens/signup/SignUpPage.dart';
 
@@ -23,6 +24,7 @@ class Routes extends StatelessWidget {
         "/login": (context)=> LoginPage(),
         "/signUp": (context)=> SignUpPage(),
         "/main" : (context)=> MainPage(),
+        "/detail" : (context)=> Detail(ModalRoute.of(context).settings.arguments),
       },
     );
   }

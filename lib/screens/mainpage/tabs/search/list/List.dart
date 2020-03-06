@@ -24,6 +24,7 @@ class _ListState extends State<List> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return BlocBuilder<PostBloc, PostState>(
       // ignore: missing_return
       builder: (context, state) {
@@ -43,16 +44,21 @@ class _ListState extends State<List> {
               child: Text('no posts'),
             );
           }
-          return ListView.builder(
-            itemBuilder: (BuildContext context, int index) {
-              return index >= state.posts.length
-                  ? BottomLoader()
-                  : PostWidget(post: state.posts[index]);
-            },
-            itemCount: state.hasReachedMax
-                ? state.posts.length
-                : state.posts.length + 1,
-            controller: _scrollController,
+          return Center(
+            child: Container(
+              width: size.width * 0.9,
+              child: ListView.builder(
+                itemBuilder: (BuildContext context, int index) {
+                  return index >= state.posts.length
+                      ? BottomLoader()
+                      : PostWidget(post: state.posts[index]);
+                },
+                itemCount: state.hasReachedMax
+                    ? state.posts.length
+                    : state.posts.length + 1,
+                controller: _scrollController,
+              ),
+            ),
           );
         }
       },

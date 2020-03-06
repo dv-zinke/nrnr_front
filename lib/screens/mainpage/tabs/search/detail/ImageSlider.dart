@@ -11,21 +11,32 @@ final List<String> imgList = [
 ];
 
 class CarouselWithIndicator extends StatefulWidget {
+
+  List _list;
+
+  CarouselWithIndicator(List list) {
+    this._list = list;
+  }
+
   @override
-  _CarouselWithIndicatorState createState() => _CarouselWithIndicatorState();
+  _CarouselWithIndicatorState createState() => _CarouselWithIndicatorState(this._list);
 }
 
 class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
   int _current = 0;
 
+  List list;
 
+  _CarouselWithIndicatorState(List list) {
+    this.list = list;
 
+  }
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
       CarouselSlider(
         items: map<Widget>(
-          imgList,
+          this.list.map((d)=> d.toString()).toList(),
           (index, i) {
             return Container(
               decoration: BoxDecoration(
@@ -45,13 +56,14 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
           });
         },
       ),
+
       Positioned(
           bottom: 0.0,
           left: 0.0,
           right: 0.0,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: map<Widget>(imgList, (index, url) {
+            children: map<Widget>(this.list.map((d)=> d.toString()).toList(), (index, url) {
               return Container(
                 width: 8.0,
                 height: 8.0,

@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nrnr/http/RequestResult.dart';
+import 'package:email_validator/email_validator.dart';
 
 class SignUpPage extends StatelessWidget {
   final GlobalKey<FormState> _signUpFormkey = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -14,15 +16,27 @@ class SignUpPage extends StatelessWidget {
 
   var result;
 
-  createUser() async {
-    result = await http_post("create-user", {
-      "id": _idController.text,
+  createUser(BuildContext context) async {
+    result = await http_post("auth/local/register", {
+      "username": _idController.text,
       "password": _passwordController.text,
-      "name": _schoolController.text,
-      "school": _nameController.text,
-      "emailAddress": _emailController.text
+      "name": _nameController.text,
+      "school": _schoolController.text,
+      "email": _emailController.text
     });
-    return result;
+    String message = '';
+    String failTitle = '회원가입 실패';
+    String successTitle = '회원가입 성공';
+    if (result['statusCode'] == 404) {
+      message = "서버가 연결이 원활하지않습니다.";
+      showAlertDialog(context, failTitle,message, false);
+    } else if (result['statusCode'] == 400) {
+      message = "회원가입 형식에 맞지않습니다.";
+      print(result);
+      showAlertDialog(context,failTitle, message, false);
+    } else if (result['statusCode'] == null) {
+      showAlertDialog(context, successTitle,message, true);
+    }
   }
 
   @override
@@ -35,81 +49,47 @@ class SignUpPage extends StatelessWidget {
             child: Stack(
               alignment: Alignment.topCenter,
               children: <Widget>[
-
                 Positioned(
                   top: 10.0,
-                  left: 0.0,
+                  left: 10.0,
                   right: 0.0,
                   child:AppBar(
                     backgroundColor: Colors.transparent,
                     elevation: 0.0,
                     leading: new IconButton(
-                      icon: new Icon(Icons.arrow_back, color: Colors.black87),
-                      onPressed: () => Navigator.pushNamed(context, '/login'),
+                      icon: new Icon(Icons.arrow_back, color: const Color(0xffff664c), size: 40,),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                    title: Padding(
+                      padding: EdgeInsets.only(left: size.width*0.20),
+                      child: Text("SIGN UP", style: TextStyle(color: Colors.black87,fontFamily: "JalnanOTF",
+                        fontStyle:  FontStyle.normal, letterSpacing: 1.5), ),
                     ),
                   )
                 ),
-                Stack(
-                  alignment: Alignment.topCenter,
-                  children: <Widget>[
-
-                    Padding(
-                        padding: EdgeInsets.only(top: size.height * 0.08),
-                        child: Stack(
-                          children: <Widget>[
-                            SvgPicture.asset('assets/images/circle.svg'),
-                            Padding(
-                              padding: EdgeInsets.only(top:50, left:25),
-                              child:   Text(
-                                  "회원가입",
-                                  style: const TextStyle(
-                                      color:  const Color(0xffffffff),
-                                      fontWeight: FontWeight.w900,
-                                      fontFamily: "JalnanOTF",
-                                      fontStyle:  FontStyle.normal,
-                                      fontSize: 26
-                                  ),
-                              )
-                            )
-                          ],
-                        ))
-                  ],
-                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-
                   children: <Widget>[
-                    SizedBox(height: size.height * 0.35),
+                    SizedBox(height: size.height * 0.15),
                     Stack(
                       children: <Widget>[
                         _inputForm(size),
                       ],
                     ),
-                    GestureDetector(
-                        onTap: () => {
-                          //Todo API통신
-                          if (_signUpFormkey.currentState.validate())
-                            {
-                              createUser(),
-                              print(createUser() + "11"),
-                              print("id = " +
-                                  _idController.text.toString() +
-                                  "\n" +
-                                  "password = " +
-                                  _passwordController.text.toString() +
-                                  "\n" +
-                                  "name = " +
-                                  _nameController.text.toString() +
-                                  "\n" +
-                                  "school = " +
-                                  _schoolController.text.toString() +
-                                  "\n" +
-                                  "email = " +
-                                  _emailController.text.toString())
-                              // Navigator.pushNamed(context, '/main'),
-                            }
-                        },
-                        child: Image.asset('assets/images/signup.png')),
+                    SizedBox(height:50),
+                    Container(
+                      child: GestureDetector(
+                          onTap: () =>{
+                            //Todo API통신
+                            if (_signUpFormkey.currentState.validate())
+                              {
+                                createUser(context),
+                              }
+                          },
+                          child: SvgPicture.asset('assets/images/done.svg', fit: BoxFit.cover, width: size.width*0.8,)
+                      ),
+                    ),
+
                     SizedBox(height: size.height * 0.04)
                   ],
 
@@ -127,22 +107,22 @@ class SignUpPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+
           new TextFormField(
             controller: _idController,
             decoration: new InputDecoration(
-              labelText: "ID",
-              fillColor: Colors.white,
-              filled: true,
-              prefixIcon: Icon(Icons.person),
-              border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(30.0),
-                borderSide: new BorderSide(),
-              ),
-              //fillColor: Colors.green
+                hintText: "Enter your id",
+                labelText: "ID",
+                labelStyle: new TextStyle(color: const Color(0xFF424242), fontSize: 16, fontWeight: FontWeight.bold),
+                border: new UnderlineInputBorder(
+                    borderSide: new BorderSide(
+                        color: Colors.red
+                    )
+                )
             ),
             validator: (val) {
               if (val.length == 0) {
-                return;
+                return '아이디를 입력해주세요.';
               } else {
                 return null;
               }
@@ -152,24 +132,22 @@ class SignUpPage extends StatelessWidget {
               fontFamily: "Poppins",
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 30),
           new TextFormField(
             obscureText: true,
             controller: _passwordController,
             decoration: new InputDecoration(
-              labelText: "Password",
-              fillColor: Colors.white,
-              filled: true,
-              prefixIcon: Icon(Icons.vpn_key),
-              border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(30.0),
-                borderSide: new BorderSide(),
-              ),
-              //fillColor: Colors.green
+                labelText: "Password",
+                labelStyle: new TextStyle(color: const Color(0xFF424242), fontSize: 16, fontWeight: FontWeight.bold),
+                border: new UnderlineInputBorder(
+                    borderSide: new BorderSide(
+                        color: Colors.red
+                    )
+                )
             ),
             validator: (val) {
               if (val.length == 0) {
-                return;
+                return '비밀번호를 입력해주세요.';
               } else {
                 return null;
               }
@@ -179,23 +157,21 @@ class SignUpPage extends StatelessWidget {
               fontFamily: "Poppins",
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 30),
           new TextFormField(
             controller: _nameController,
             decoration: new InputDecoration(
-              labelText: "name",
-              fillColor: Colors.white,
-              filled: true,
-              prefixIcon: Icon(Icons.account_circle),
-              border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(30.0),
-                borderSide: new BorderSide(),
-              ),
-              //fillColor: Colors.green
+                labelText: "Name",
+                labelStyle: new TextStyle(color: const Color(0xFF424242), fontSize: 16, fontWeight: FontWeight.bold),
+                border: new UnderlineInputBorder(
+                    borderSide: new BorderSide(
+                        color: Colors.red
+                    )
+                )
             ),
             validator: (val) {
               if (val.length == 0) {
-                return;
+                return '이름을 입력해주세요.';
               } else {
                 return null;
               }
@@ -205,23 +181,21 @@ class SignUpPage extends StatelessWidget {
               fontFamily: "Poppins",
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 30),
           new TextFormField(
             controller: _schoolController,
             decoration: new InputDecoration(
-              labelText: "school",
-              fillColor: Colors.white,
-              filled: true,
-              prefixIcon: Icon(Icons.school),
-              border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(30.0),
-                borderSide: new BorderSide(),
-              ),
-              //fillColor: Colors.green
+                labelText: "school",
+                labelStyle: new TextStyle(color: const Color(0xFF424242), fontSize: 16, fontWeight: FontWeight.bold),
+                border: new UnderlineInputBorder(
+                    borderSide: new BorderSide(
+                        color: Colors.red
+                    )
+                )
             ),
             validator: (val) {
               if (val.length == 0) {
-                return;
+                return '학교명을 입력해주세요.';
               } else {
                 return null;
               }
@@ -231,24 +205,24 @@ class SignUpPage extends StatelessWidget {
               fontFamily: "Poppins",
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 30),
           new TextFormField(
             controller: _emailController,
             decoration: new InputDecoration(
-              labelText: "email",
-              fillColor: Colors.white,
-              filled: true,
-              prefixIcon: Icon(Icons.email),
-              border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(30.0),
-                borderSide: new BorderSide(),
-              ),
-              //fillColor: Colors.green
+                labelText: "Email",
+                labelStyle: new TextStyle(color: const Color(0xFF424242), fontSize: 16, fontWeight: FontWeight.bold),
+                border: new UnderlineInputBorder(
+                    borderSide: new BorderSide(
+                        color: Colors.red
+                    )
+                )
             ),
             validator: (val) {
               if (val.length == 0) {
-                return;
+                return '이메일을 입력해주세요.';
               } else {
+                bool isValid = EmailValidator.validate(_emailController.text);
+                if(!isValid) return '이메일형식에 맞게 입력해주세요.';
                 return null;
               }
             },
@@ -261,4 +235,40 @@ class SignUpPage extends StatelessWidget {
       ),
     ),
   );
+
+  void showAlertDialog(BuildContext context, String title, String message, bool isCreate) async {
+    String result = await showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('확인'),
+              onPressed: () {
+                if(isCreate) Navigator.pop(context, '/');
+                Navigator.pop(context, "확인");
+              },
+            ),
+          ],
+        );
+      },
+    );
+
+    scaffoldKey.currentState
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text("Result: $result"),
+          backgroundColor: Colors.orange,
+          action: SnackBarAction(
+            label: "Done",
+            textColor: Colors.white,
+            onPressed: () {},
+          ),
+        ),
+      );
+  }
 }

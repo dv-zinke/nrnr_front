@@ -10,7 +10,6 @@ class InitScreen extends StatelessWidget {
         body: Stack(
       fit: StackFit.expand,
       children: <Widget>[
-        SvgPicture.asset('assets/images/background.svg', fit: BoxFit.cover),
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -23,15 +22,21 @@ class InitScreen extends StatelessWidget {
                     Stack(
                       alignment: Alignment.topCenter,
                       children: <Widget>[
-                        Image.asset('assets/images/logo.png'),
                         Padding(
-                          padding:EdgeInsets.only(top: 90),
-                          child: Image.asset('assets/images/logo_text.png'),
-                        )
+                            padding: EdgeInsets.only(top: 0),
+                            child: Stack(
+                              children: <Widget>[
+                                SvgPicture.asset('assets/images/circle.svg'),
+                                Padding(
+                                  padding: EdgeInsets.only(left:40, top:40),
+                                  child: Image.asset('assets/images/newLogo.png', width: 60,),
+                                )
+                              ],
+                            ))
                       ],
                     ),
 
-                    Container(height: size.height * 0.30),
+                    Container(height: size.height * 0.10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -39,7 +44,7 @@ class InitScreen extends StatelessWidget {
                         Container(
                           child: GestureDetector(
                             onTap: () =>{ Navigator.pushNamed(context, '/login')},
-                            child: SvgPicture.asset('assets/images/loginButton.svg', fit: BoxFit.cover, width: size.width*0.8)
+                            child: SvgPicture.asset('assets/images/newLogin.svg', fit: BoxFit.cover, width: size.width*0.8)
                           ),
                         ),
                         Padding(padding: EdgeInsets.only(bottom: 20),),
